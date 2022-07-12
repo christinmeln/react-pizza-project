@@ -10,9 +10,7 @@ function App() {
 
   React.useEffect(() => {
     fetch("https://62cd52d5a43bf78008560efa.mockapi.io/items")
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((json) => {
         setItems(json);
       });
