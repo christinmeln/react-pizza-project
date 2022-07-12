@@ -14,7 +14,7 @@ function App() {
         return res.json();
       })
       .then((json) => {
-        console.log(json);
+        setItems(json);
       });
   }, []);
 
