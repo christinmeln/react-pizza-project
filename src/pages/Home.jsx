@@ -22,7 +22,7 @@ const Home = () => {
     const sortBy = sortType.sortProperty.replace("-", "");
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     fetch(
-      `https://62cd52d5a43bf78008560efa.mockapi.io/items?${category}}&sortBy=${sortBy}&order=${order}`
+      `https://62cd52d5a43bf78008560efa.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
     )
       .then((res) => res.json())
       .then((json) => {
