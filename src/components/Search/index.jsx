@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./Search.module.scss";
 
-const Search = () => {
+const Search = ({ searchValue, setSearchValue }) => {
   return (
     <div className={styles.root}>
       <svg
@@ -39,7 +39,11 @@ const Search = () => {
           y2="20.366"
         />
       </svg>
-      <input className={styles.input} placeholder="Найти пиццу"></input>
+      <input
+        className={styles.input}
+        onChange={(onChange = {})}
+        placeholder="Найти пиццу"
+      ></input>
     </div>
   );
 };

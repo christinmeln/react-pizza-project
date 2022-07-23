@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Search from "./Search";
 // import Cart from "../pages/Cart";
 
-function Header() {
+function Header({ searchValue, setSearchValue }) {
   return (
     <div className="header">
       <div className="container">
