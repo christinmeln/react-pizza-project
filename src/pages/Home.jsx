@@ -50,7 +50,6 @@ const Home = () => {
       .then((res) => {
         setItems(res.data);
         setIsLoading(false);
-        console.log(res);
       });
 
     window.scrollTo(0, 0);
