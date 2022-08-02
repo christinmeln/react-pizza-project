@@ -1,6 +1,6 @@
 import React from "react";
-// import { useSelector } from "@reduxjs/toolkit";
-import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import qs from "qs";
 
 import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 import Categories from "../components/Categories";
@@ -18,9 +18,6 @@ const Home = () => {
     (state) => state.filter
   );
 
-  // const categoryId = useSelector((state) => state.filter.categoryId);
-  // const fype = useSelector((state) => state.filter.sort.sortProperty);
-
   const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -32,6 +29,25 @@ const Home = () => {
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
+
+  // React.useEffect(() => {
+  //   if (window.location.search) {
+  //     const params = qs.parse(window.location.search.substring(1));
+
+  //     const sort = sortList.find(
+  //       (obj) => obj.sortProperty === params.sortProperty
+  //     );
+
+  //     dispatch(
+  //       setFilters({
+  //         searchValue: params.search,
+  //         categoryId: Number(params.category),
+  //         currentPage: Number(params.currentPage),
+  //         sort: sortObj || sortList[0],
+  //       })
+  //     );
+  //   }
+  // }, []);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -62,6 +78,16 @@ const Home = () => {
 
     window.scrollTo(0, 0);
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
+  React.useEffect(() => {
+    const queryString = qs.stringify({
+      sortProperty: sort.sortProperty,
+      categoryId,
+      currentPage,
+    });
+
+    navigate(`?${queryString}`);
+  }, [categoryId, sort.sortProperty, currentPage]);
 
   const pizzas = items
     // .filter((obj) => {
