@@ -2,16 +2,25 @@ import React from "react";
 import axios from "axios";
 import qs from "qs";
 
-import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
+// import { selectFilter } from "../redux/filter/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from "../redux/slices/filterSlice";
+import { SearchContext } from "../App";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
-import { SearchContext } from "../App";
-import axios from "axios";
+
+import { sortList } from "../components/Sort";
 
 const Home = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { categoryId, sort, currentPage } = useSelector(
