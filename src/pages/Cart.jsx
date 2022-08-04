@@ -5,13 +5,15 @@ import { clearItems } from "../redux/slices/cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.cart.items);
+  const { totalPrice, items } = useSelector((state) => state.cart);
 
   const onClickClear = () => {
     if (window.confirm("Очистить корзину?")) {
       dispatch(clearItems());
     }
   };
+
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
   return (
     <div className="container container--cart">
@@ -99,11 +101,11 @@ const Cart = () => {
           <div className="cart__bottom-details">
             <span>
               Всего:
-              <b>3 шт.</b>
+              <b> {totalCount} шт.</b>
             </span>
             <span>
               Сумма заказа:
-              <b>750$</b>
+              <b> {totalPrice} ₽</b>
             </span>
           </div>
           <div className="cart__bottom-buttons">
