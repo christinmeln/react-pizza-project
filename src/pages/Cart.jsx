@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CartEmpty } from "../components/CartEmpty";
 import CartItem from "../components/CartItem";
 import { clearItems } from "../redux/slices/cartSlice";
 
@@ -14,6 +15,10 @@ const Cart = () => {
   };
 
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+
+  if (!totalPrice) {
+    return <CartEmpty />;
+  }
 
   return (
     <div className="container container--cart">
