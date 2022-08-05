@@ -78,18 +78,29 @@ const Home = () => {
 
     // await axios
     //   .get(
-    // `https://62cd52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+    //     `https://62d52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
     //   )
     //   .then((res) => {
-    // setItems(res.data);
-    // setIsLoading(false);
+    //     setItems(res.data);
+    //     setIsLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     setIsLoading(false);
     //   });
 
-    const res = axios.get(
-      `https://62cd52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-    );
-    setItems(res.data);
-    setIsLoading(false);
+    try {
+      const res = await axios.get(
+        `https://62cd52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+      );
+      setItems(res.data);
+      // setIsLoading(false);
+    } catch (error) {
+      // setIsLoading(false);
+      alert("Ошибка при получении пицц", error);
+      console.log("error", error);
+    } finally {
+      setIsLoading(false);
+    }
 
     window.scrollTo(0, 0);
   };
