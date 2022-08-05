@@ -76,14 +76,21 @@ const Home = () => {
     //     setIsLoading(false);
     //   });
 
-    await axios
-      .get(
-        `https://62cd52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+    // await axios
+    //   .get(
+    // `https://62cd52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+    //   )
+    //   .then((res) => {
+    // setItems(res.data);
+    // setIsLoading(false);
+    //   });
+
+    const res = axios.get(
+      `https://62cd52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+    );
+    setItems(res.data);
+    setIsLoading(false);
+
     window.scrollTo(0, 0);
   };
 
