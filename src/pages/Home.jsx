@@ -58,7 +58,7 @@ const Home = () => {
   //   }
   // }, []);
 
-  React.useEffect(() => {
+  const getPizzas = async () => {
     setIsLoading(true);
 
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
@@ -76,7 +76,7 @@ const Home = () => {
     //     setIsLoading(false);
     //   });
 
-    axios
+    await axios
       .get(
         `https://62cd52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
       )
@@ -84,18 +84,19 @@ const Home = () => {
         setItems(res.data);
         setIsLoading(false);
       });
-
     window.scrollTo(0, 0);
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+  };
 
   React.useEffect(() => {
-    const queryString = qs.stringify({
-      sortProperty: sort.sortProperty,
-      categoryId,
-      currentPage,
-    });
+    // const queryString = qs.stringify({
+    //   sortProperty: sort.sortProperty,
+    //   categoryId,
+    //   currentPage,
+    // });
 
-    navigate(`?${queryString}`);
+    // navigate(`?${queryString}`);
+
+    getPizzas();
   }, [categoryId, sort.sortProperty, currentPage]);
 
   const pizzas = items
