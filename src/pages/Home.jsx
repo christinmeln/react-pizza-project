@@ -1,15 +1,11 @@
 import React from "react";
 import axios from "axios";
-import qs from "qs";
+// import qs from "qs";
 
 // import { selectFilter } from "../redux/filter/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  setCategoryId,
-  setCurrentPage,
-  setFilters,
-} from "../redux/slices/filterSlice";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 import { SearchContext } from "../App";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -18,17 +14,19 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 
 import { sortList } from "../components/Sort";
+import { setItems } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const items = useSelector((state) => state.pizza.items);
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
   );
 
   const { searchValue } = React.useContext(SearchContext);
-  const [items, setItems] = React.useState([]);
+  // const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const onClickCategory = (id) => {
@@ -89,10 +87,11 @@ const Home = () => {
     //   });
 
     try {
-      const res = await axios.get(
+      const { data } = await axios.get(
         `https://62cd52d5a43bf78008560efa.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
       );
-      setItems(res.data);
+      dispatch(setItems(data));
+      // setItems(res.data);
       // setIsLoading(false);
     } catch (error) {
       // setIsLoading(false);
