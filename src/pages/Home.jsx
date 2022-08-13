@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 import { SearchContext } from "../App";
@@ -65,15 +66,9 @@ const Home = () => {
   }, [categoryId, sort.sortProperty, currentPage]);
 
   const pizzas = items.map((obj) => (
-    <PizzaBlock
-      key={obj.id}
-      {...obj}
-      // title={obj.title}
-      // price={obj.price}
-      // imageUrl={obj.imageUrl}
-      // sizes={obj.sizes}
-      // types={obj.types}
-    />
+    <Link key={obj.id} to={`/pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link>
   ));
 
   const skeletons = [...new Array(6)].map((_, index) => (
