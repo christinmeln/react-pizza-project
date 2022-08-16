@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
-import { SearchContext } from "../App";
+import { SearchContext } from "../App.tsx";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
