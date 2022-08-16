@@ -1,11 +1,12 @@
 import React from "react";
-import { SearchContext } from "../../App.tsx";
+// import { SearchContext } from "../../App.tsx";
 import styles from "./Search.module.scss";
 import debounce from "lodash.debounce";
+import { setSearchValue } from "../../redux/slices/filterSlice";
 
 const Search = () => {
   const [value, setValue] = React.useState("");
-  const { setSearchValue } = React.useContext(SearchContext);
+  // const { setSearchValue } = React.useContext(SearchContext);
   const inputRef = React.useRef();
 
   const onClickClear = () => {

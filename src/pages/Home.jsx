@@ -2,8 +2,12 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
-import { SearchContext } from "../App.tsx";
+import {
+  setCategoryId,
+  setCurrentPage,
+  // setFilters,
+} from "../redux/slices/filterSlice";
+// import { SearchContext } from "../App.tsx";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
@@ -16,11 +20,11 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const { items, status } = useSelector((state) => state.pizza);
-  const { categoryId, sort, currentPage } = useSelector(
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
     (state) => state.filter
   );
 
-  const { searchValue } = React.useContext(SearchContext);
+  // const { searchValue } = React.useContext(SearchContext);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -54,7 +58,8 @@ const Home = () => {
     const sortBy = sort.sortProperty.replace("-", "");
 
     const category = categoryId > 0 ? `category=${categoryId}` : "";
-    const search = searchValue ? `&search=${searchValue}` : "";
+    // const search = searchValue ? `&search=${searchValue}` : "";
+    const search = searchValue;
 
     dispatch(fetchPizzas({ order, sortBy, category, search, currentPage }));
 
@@ -63,7 +68,7 @@ const Home = () => {
 
   React.useEffect(() => {
     getPizzas();
-  }, [categoryId, sort.sortProperty, currentPage]);
+  }, [categoryId, sort.sortProperty, currentPage, searchValue]);
 
   const pizzas = items.map((obj) => (
     <Link key={obj.id} to={`/pizza/${obj.id}`}>
