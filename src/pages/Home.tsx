@@ -19,19 +19,19 @@ import { fetchPizzas } from "../redux/slices/pizzaSlice";
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { items, status } = useSelector((state) => state.pizza);
+  const { items, status } = useSelector((state: any) => state.pizza);
   const { categoryId, sort, currentPage, searchValue } = useSelector(
-    (state) => state.filter
+    (state: any) => state.filter
   );
 
   // const { searchValue } = React.useContext(SearchContext);
 
-  const onClickCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onClickCategory = (idx: number) => {
+    dispatch(setCategoryId(idx));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   // React.useEffect(() => {
@@ -61,7 +61,10 @@ const Home = () => {
     // const search = searchValue ? `&search=${searchValue}` : "";
     const search = searchValue;
 
-    dispatch(fetchPizzas({ order, sortBy, category, search, currentPage }));
+    dispatch(
+      // @ts-ignore
+      fetchPizzas({ order, sortBy, category, search, currentPage })
+    );
 
     window.scrollTo(0, 0);
   };
@@ -70,7 +73,7 @@ const Home = () => {
     getPizzas();
   }, [categoryId, sort.sortProperty, currentPage, searchValue]);
 
-  const pizzas = items.map((obj) => (
+  const pizzas = items.map((obj: any) => (
     <Link key={obj.id} to={`/pizza/${obj.id}`}>
       <PizzaBlock {...obj} />
     </Link>
