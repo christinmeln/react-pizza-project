@@ -1,3 +1,4 @@
+import { type } from "os";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
@@ -8,6 +9,8 @@ type SortListItem = {
   name: string;
   sortProperty: string;
 };
+
+type PopupClick = React.MouseEvent<HTMLBodyElement>;
 
 export const sortList: SortListItem[] = [
   { name: "более популярно", sortProperty: "rating" },
@@ -30,8 +33,11 @@ function Sort() {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as MouseEvent & {
+        path: Node[];
+      };
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
         // console.log("click outside (was sort mount)");
       }
