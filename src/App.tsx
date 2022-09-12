@@ -19,7 +19,7 @@ function App() {
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<Home />}></Route>
         <Route path="*" element={<NotFound />}></Route>
-        <Route path="pizza/:id" element={<FullPizza />}></Route>
+        {/* <Route path="pizza/:id" element={<FullPizza />}></Route> */}
         <Route path="cart" element={<Cart />}></Route>
       </Route>
     </Routes>
